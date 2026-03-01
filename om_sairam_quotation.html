@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Om Sairam Enterprises - Solar Quotation</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Noto+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--or:#FF6B00;--dor:#C94F00;--dark:#0D0D1A;--card:#16213E;--tx:#E8E8E8;--mu:#8888A8;--gr:#00C853;--br:rgba(255,107,0,0.25);}
+*{margin:0;padding:0;box-sizing:border-box;}
+
+@media print {
+  html,body{margin:0!important;padding:0!important;background:white!important;}
+  .no-print{display:none!important;}
+  #formPage{display:none!important;}
+  #previewPage{display:block!important;}
+  #quotDiv{width:100%!important;box-shadow:none!important;border-radius:0!important;}
+  .q-head,.q-foot{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+}
+
+body{font-family:'Noto Sans',sans-serif;background:var(--dark);color:var(--tx);min-height:100vh;}
+.app-header{background:linear-gradient(135deg,#FF6B00,#C94F00);padding:20px 16px 16px;text-align:center;}
+.logo-row{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:6px;}
+.logo-circle{width:54px;height:54px;background:white;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.co-name{font-family:'Rajdhani',sans-serif;font-size:20px;font-weight:700;color:white;line-height:1.2;text-align:left;}
+.co-addr{font-size:10px;color:rgba(255,255,255,0.85);text-align:left;margin-top:2px;}
+.app-badge{display:inline-block;background:rgba(0,0,0,0.25);padding:3px 12px;border-radius:20px;font-size:10px;color:white;letter-spacing:2px;text-transform:uppercase;font-weight:600;}
+
+#formPage{display:block;}
+#previewPage{display:none;}
+
+.cont{max-width:480px;margin:0 auto;padding:14px 12px 50px;}
+.sec-title{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:var(--or);text-transform:uppercase;letter-spacing:1.5px;margin:20px 0 8px;padding-left:10px;border-left:3px solid var(--or);}
+.card{background:var(--card);border:1px solid var(--br);border-radius:12px;padding:14px;margin-bottom:6px;}
+.fg{margin-bottom:12px;}
+.fg:last-child{margin-bottom:0;}
+label{display:block;font-size:11px;font-weight:600;color:var(--mu);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:4px;}
+input,select,textarea{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:10px 12px;color:var(--tx);font-size:14px;font-family:'Noto Sans',sans-serif;outline:none;-webkit-appearance:none;appearance:none;transition:border-color 0.2s;}
+input:focus,select:focus,textarea:focus{border-color:var(--or);}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23888'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px;}
+select option{background:#1A1A2E;color:white;}
+textarea{resize:none;height:60px;font-size:12px;}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.hidden{display:none;}
+
+.pricebox{background:rgba(255,107,0,0.08);border:1px solid rgba(255,107,0,0.3);border-radius:10px;padding:12px;margin-top:10px;}
+.pr{display:flex;justify-content:space-between;padding:5px 0;font-size:13px;border-bottom:1px solid rgba(255,255,255,0.05);}
+.pr:last-child{border:none;font-size:16px;font-weight:700;color:var(--gr);padding-top:8px;margin-top:4px;border-top:1px solid rgba(255,255,255,0.1);}
+.prl{color:var(--mu);}
+
+.btn-gen{width:100%;background:linear-gradient(135deg,#FF6B00,#C94F00);color:white;border:none;border-radius:12px;padding:15px;font-size:16px;font-family:'Rajdhani',sans-serif;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;margin-top:18px;box-shadow:0 4px 18px rgba(255,107,0,0.4);}
+.btn-dl{width:100%;background:var(--gr);color:white;border:none;border-radius:12px;padding:14px;font-size:15px;font-family:'Rajdhani',sans-serif;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;box-shadow:0 4px 18px rgba(0,200,83,0.35);margin-bottom:10px;}
+.btn-back{width:100%;background:transparent;color:var(--or);border:1px solid var(--or);border-radius:12px;padding:12px;font-size:14px;font-family:'Rajdhani',sans-serif;font-weight:600;letter-spacing:1px;text-transform:uppercase;cursor:pointer;}
+.preview-cont{max-width:600px;margin:0 auto;padding:14px 12px 40px;}
+
+/* ===== QUOTATION ===== */
+#quotDiv{background:white;border-radius:12px;overflow:hidden;color:#333;font-family:Arial,sans-serif;font-size:13px;}
+.q-head{background:linear-gradient(135deg,#FF6B00,#C94F00);padding:16px 20px;display:flex;align-items:center;gap:14px;}
+.q-lcirc{width:58px;height:58px;background:white;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.q-cname{font-size:20px;font-weight:900;color:white;}
+.q-csub{font-size:10px;color:rgba(255,255,255,0.9);margin-top:3px;line-height:1.5;}
+.q-body{padding:16px 18px;}
+.q-title{text-align:center;font-size:20px;font-weight:700;color:#FF6B00;margin-bottom:2px;}
+.q-sub{text-align:center;font-size:10px;color:#999;margin-bottom:8px;}
+.q-valid{text-align:center;margin-bottom:12px;}
+.q-valid span{display:inline-block;background:#FFF3CD;color:#856404;font-size:10px;font-weight:600;padding:2px 10px;border-radius:20px;border:1px solid #FFEAA7;}
+.q-refbar{display:flex;justify-content:space-between;background:#F8F9FA;border-radius:6px;padding:6px 12px;margin-bottom:10px;font-size:10px;color:#666;}
+.q-refbar b{color:#333;}
+.q-client{background:#FFF8F3;border:1px solid #FFD0B0;border-radius:8px;padding:10px 14px;margin-bottom:12px;display:flex;flex-wrap:wrap;gap:8px;}
+.q-ci{min-width:130px;}
+.q-ci-l{font-size:9px;color:#999;display:block;}
+.q-ci-v{font-size:12px;font-weight:700;color:#222;}
+.q-specs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;}
+.q-spec{background:#F8F9FA;border:1px solid #E5E5E5;border-radius:7px;padding:8px 10px;display:flex;align-items:center;gap:8px;}
+.q-sico{font-size:20px;flex-shrink:0;}
+.q-sl{font-size:9px;color:#888;display:block;}
+.q-sv{font-size:11px;font-weight:700;color:#222;}
+.q-ptable{width:100%;border-collapse:collapse;margin-bottom:12px;}
+.q-ptable th{background:#FF6B00;color:white;padding:8px 10px;font-size:11px;text-align:left;}
+.q-ptable td{padding:7px 10px;font-size:11px;border-bottom:1px solid #F0F0F0;}
+.q-ptable .tr td{font-weight:700;background:#FFF8F3;font-size:13px;border-top:2px solid #FF6B00;border-bottom:none;}
+.q-stitle{font-size:13px;font-weight:700;color:#FF6B00;margin-bottom:6px;}
+.q-pay{width:100%;border-collapse:collapse;margin-bottom:12px;}
+.q-pay th{background:#333;color:white;padding:7px 8px;font-size:10px;text-align:center;}
+.q-pay td{padding:6px 8px;font-size:10px;text-align:center;border-bottom:1px solid #F0F0F0;}
+.q-pay tr:nth-child(even) td{background:#F8F8F8;}
+.q-bank{background:#F8F9FA;border:1px solid #E5E5E5;border-radius:7px;padding:10px 14px;margin-bottom:12px;}
+.q-bt{font-size:12px;font-weight:700;color:#333;margin-bottom:5px;}
+.q-bd{font-size:10px;color:#555;line-height:1.8;}
+.q-bd b{color:#333;}
+.q-warr{width:100%;border-collapse:collapse;margin-bottom:12px;}
+.q-warr th{background:#555;color:white;padding:7px 8px;font-size:10px;text-align:left;}
+.q-warr td{padding:6px 8px;font-size:10px;border-bottom:1px solid #F0F0F0;}
+.q-warr tr:nth-child(even) td{background:#F8F8F8;}
+.q-warr .yr{font-weight:700;color:#FF6B00;}
+.q-tc{margin-bottom:12px;}
+.q-tc ol{padding-left:15px;font-size:10px;color:#555;line-height:1.7;}
+.q-rem{background:#FFFBF0;border:1px solid #FFE082;border-radius:6px;padding:8px 12px;font-size:10px;color:#555;margin-bottom:10px;}
+.q-consultant{background:#F0F8FF;border:1px solid #BDD7EE;border-radius:8px;padding:10px 14px;margin-bottom:12px;}
+.q-ct{font-size:12px;font-weight:700;color:#1565C0;margin-bottom:5px;}
+.q-cd{font-size:10px;color:#333;line-height:1.8;}
+.q-foot{background:#222;color:white;text-align:center;padding:12px 16px;}
+.q-ftag{font-size:16px;font-weight:700;color:#FF6B00;margin-bottom:3px;}
+.q-fsub{font-size:10px;color:#aaa;}
+</style>
+</head>
+<body>
+
+<!-- APP HEADER -->
+<div class="app-header no-print">
+  <div class="logo-row">
+    <div class="logo-circle">
+      <svg width="44" height="44" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="24" cy="24" r="11" fill="#FF6B00"/>
+        <circle cx="24" cy="24" r="8" fill="#FFB300"/>
+        <rect x="22.5" y="2" width="3" height="7" rx="1.5" fill="#FF6B00"/>
+        <rect x="22.5" y="39" width="3" height="7" rx="1.5" fill="#FF6B00"/>
+        <rect x="2" y="22.5" width="7" height="3" rx="1.5" fill="#FF6B00"/>
+        <rect x="39" y="22.5" width="7" height="3" rx="1.5" fill="#FF6B00"/>
+        <g transform="rotate(45 24 24)"><rect x="22.5" y="2" width="3" height="7" rx="1.5" fill="#FF6B00"/><rect x="22.5" y="39" width="3" height="7" rx="1.5" fill="#FF6B00"/><rect x="2" y="22.5" width="7" height="3" rx="1.5" fill="#FF6B00"/><rect x="39" y="22.5" width="7" height="3" rx="1.5" fill="#FF6B00"/></g>
+        <text x="24" y="28" text-anchor="middle" font-size="12" font-weight="bold" fill="white" font-family="serif">ॐ</text>
+      </svg>
+    </div>
+    <div>
+      <div class="co-name">OM SAIRAM ENTERPRISES</div>
+      <div class="co-addr">338/2 Kirmiti, Hingna, Nagpur | 7304894029</div>
+    </div>
+  </div>
+  <div class="app-badge">⚡ Solar Quotation Generator</div>
+</div>
+
+<!-- ========== FORM PAGE ========== -->
+<div id="formPage">
+<div class="cont">
+
+  <!-- 1. CLIENT DETAILS -->
+  <div class="sec-title">👤 Client Details</div>
+  <div class="card">
+    <div class="fg"><label>Client Name *</label><input type="text" id="cName" placeholder="Poora naam likhein"></div>
+    <div class="fg"><label>Address *</label><input type="text" id="cAddr" placeholder="Ghar / Colony / Street"></div>
+    <div class="row2">
+      <div class="fg"><label>City *</label><input type="text" id="cCity" placeholder="Nagpur / Pune..."></div>
+      <div class="fg"><label>State</label><input type="text" id="cState" placeholder="Maharashtra"></div>
+    </div>
+    <div class="fg"><label>Mobile No.</label><input type="tel" id="cMob" placeholder="9876543210"></div>
+    <div class="fg"><label>Email ID</label><input type="email" id="cEmail" placeholder="customer@email.com"></div>
+    <div class="fg"><label>Quotation Date *</label><input type="date" id="qDate"></div>
+  </div>
+
+  <!-- 2. SYSTEM SPECIFICATIONS -->
+  <div class="sec-title">⚡ System Specifications</div>
+  <div class="card">
+    <div class="fg">
+      <label>System Size *</label>
+      <select id="sSize" onchange="toggleOtherSize()">
+        <option value="">-- Select karo --</option>
+        <option>1 kWp / 2 Panel</option>
+        <option>2 kWp / 4 Panel</option>
+        <option>3 kWp / 5 Panel</option>
+        <option>3 kWp / 6 Panel</option>
+        <option>4 kWp / 7 Panel</option>
+        <option>4 kWp / 8 Panel</option>
+        <option>5 kWp / 8 Panel</option>
+        <option>5 kWp / 9 Panel</option>
+        <option>5 kWp / 10 Panel</option>
+        <option>6 kWp / 11 Panel</option>
+        <option>6 kWp / 12 Panel</option>
+        <option>7 kWp / 13 Panel</option>
+        <option>7 kWp / 14 Panel</option>
+        <option>8 kWp / 14 Panel</option>
+        <option>8 kWp / 15 Panel</option>
+        <option>9 kWp / 16 Panel</option>
+        <option>9 kWp / 17 Panel</option>
+        <option>10 kWp / 18 Panel</option>
+        <option>10 kWp / 19 Panel</option>
+        <option>11 kWp / 20 Panel</option>
+        <option>12 kWp / 22 Panel</option>
+        <option>13 kWp / 24 Panel</option>
+        <option>14 kWp / 25 Panel</option>
+        <option>15 kWp / 27 Panel</option>
+        <option>16 kWp / 29 Panel</option>
+        <option>17 kWp / 30 Panel</option>
+        <option>18 kWp / 32 Panel</option>
+        <option>19 kWp / 34 Panel</option>
+        <option>20 kWp / 36 Panel</option>
+        <option value="Others">Others / As per demand</option>
+      </select>
+    </div>
+    <div class="fg hidden" id="otherSizeBox">
+      <label>Custom System Size</label>
+      <input type="text" id="otherSize" placeholder="e.g. 22 kWp / 40 Panel">
+    </div>
+
+    <div class="fg">
+      <label>Solar Panel Type *</label>
+      <select id="sPanel">
+        <option value="">-- Select karo --</option>
+        <option>Adani Topcon Above 565WP</option>
+        <option>Adani Bifacial 540wp-550wp (DCR)</option>
+        <option>Adani Bifacial 540wp-550wp (NDCR)</option>
+        <option>Adani Topcon Bifacial 610wp-620wp DCR</option>
+        <option>Adani Topcon Bifacial 610wp-620wp NDCR</option>
+        <option>Oswal Bifacial 540wp-550wp (DCR)</option>
+        <option>Oswal Bifacial 540wp-550wp (NDCR)</option>
+        <option>Premier Energies Bifacial 540wp (DCR)</option>
+        <option>Premier Energies Bifacial 540wp (NDCR)</option>
+        <option>Navitas Bifacial 540wp (NDCR)</option>
+        <option>Waaree Bifacial 540wp-550wp (DCR)</option>
+        <option>Waaree Bifacial 540wp-550wp (NDCR)</option>
+        <option>Waaree Topcon 610wp-620wp (DCR)</option>
+        <option>Waaree Topcon 610wp-620wp (NDCR)</option>
+        <option>Other Make</option>
+      </select>
+    </div>
+
+    <div class="fg">
+      <label>Inverter *</label>
+      <select id="sInv" onchange="toggleOtherInv()">
+        <option value="">-- Select karo --</option>
+        <option>Sungrow Ongrid-1kW (Single PH)</option>
+        <option>Sungrow Ongrid-2kW (Single PH)</option>
+        <option>Sungrow Ongrid-3kW (Single PH)</option>
+        <option>Sungrow Ongrid-5kW (Single PH)</option>
+        <option>Sungrow Ongrid-5kW (Three PH)</option>
+        <option>Sungrow Ongrid-10kW (Three PH)</option>
+        <option>Sungrow Ongrid-15kW (Three PH)</option>
+        <option>Sungrow Ongrid-20kW (Three PH)</option>
+        <option>Havells 3kW</option>
+        <option>Havells 5kW</option>
+        <option>Invergy 3kW</option>
+        <option>Invergy 5kW</option>
+        <option>UTL/Luminous 3kW</option>
+        <option>UTL/Luminous 5kW</option>
+        <option>Growatt 3kW (Single PH)</option>
+        <option>Growatt 5kW (Single PH)</option>
+        <option>Waaree 3kW (Single PH)</option>
+        <option>Waaree 5kW (Single PH)</option>
+        <option>Waaree 5kW (Three PH)</option>
+        <option>Waaree 10kW (Three PH)</option>
+        <option>Polycab 3kW (Single PH)</option>
+        <option>Polycab 5kW (Single PH)</option>
+        <option>Polycab 5kW (Three PH)</option>
+        <option>Polycab 10kW (Three PH)</option>
+        <option value="Others">Others</option>
+      </select>
+    </div>
+    <div class="fg hidden" id="otherInvBox">
+      <label>Custom Inverter Name</label>
+      <input type="text" id="otherInv" placeholder="e.g. Fronius 10kW">
+    </div>
+  </div>
+
+  <!-- 3. INSTALLATION & FINANCIALS -->
+  <div class="sec-title">🏗️ Installation & Financials</div>
+  <div class="card">
+    <div class="fg">
+      <label>Battery</label>
+      <select id="sBatt">
+        <option value="Not Included">Not Included</option>
+        <option>2 Nos - UTL/Luminous/Exide/Eqv.</option>
+        <option>4 Nos - UTL/Luminous/Exide/Eqv.</option>
+        <option>6 Nos - UTL/Luminous/Exide/Eqv.</option>
+        <option>As per load demand</option>
+      </select>
+    </div>
+    <div class="fg">
+      <label>Structure Type *</label>
+      <select id="sStruct">
+        <option value="">-- Select karo --</option>
+        <option>HDGI Structure (8/6ft)</option>
+        <option>HDGI Structure (10/8ft)</option>
+        <option>Mono Rail Structure (Tin Shed)</option>
+        <option>GI Structure (Tin Shed)</option>
+        <option>GI Structure</option>
+        <option>Others / Customized</option>
+      </select>
+    </div>
+    <div class="fg">
+      <label>Plant Type</label>
+      <select id="sPlant">
+        <option>RCC Roof</option>
+        <option>Ground Mount</option>
+        <option>Metal Sheet / Tin Shed</option>
+      </select>
+    </div>
+    <div class="fg">
+      <label>Performance Service</label>
+      <select id="sPerf">
+        <option>5 Years Sales Service Included</option>
+        <option>1 Year Sales Service Included</option>
+      </select>
+    </div>
+    <div class="fg"><label>Total System Price (GST Included) ₹ *</label><input type="number" id="sPrice" placeholder="e.g. 205000" oninput="calcP()"></div>
+    <div class="fg"><label>Govt. Subsidy ₹</label><input type="number" id="sSub" placeholder="e.g. 78000" oninput="calcP()"></div>
+
+    <div class="pricebox" id="pBox" style="display:none;">
+      <div class="pr"><span class="prl">Total System Price</span><span id="dTot">-</span></div>
+      <div class="pr"><span class="prl">Govt. Subsidy</span><span id="dSub" style="color:#FF6B00">-</span></div>
+      <div class="pr"><span>Net Amount Payable</span><span id="dNet">-</span></div>
+    </div>
+
+    <div class="fg" style="margin-top:12px;"><label>Remarks (Optional)</label><textarea id="sRem" placeholder="Koi khaas baat likhni ho to..."></textarea></div>
+  </div>
+
+  <!-- 4. CONSULTANT DETAILS -->
+  <div class="sec-title">🧑‍💼 Consultant Details</div>
+  <div class="card">
+    <div class="fg"><label>Consultant Name *</label><input type="text" id="conName" placeholder="Aapka naam"></div>
+    <div class="fg"><label>Consultant Phone</label><input type="tel" id="conPhone" placeholder="9876543210"></div>
+    <div class="fg"><label>Consultant Email</label><input type="email" id="conEmail" placeholder="consultant@email.com"></div>
+    <div class="fg"><label>Office Location</label><input type="text" id="conOffice" placeholder="Branch / Office area"></div>
+  </div>
+
+  <button class="btn-gen" onclick="generate()">⚡ QUOTATION GENERATE KARO</button>
+</div>
+</div>
+
+<!-- ========== PREVIEW PAGE ========== -->
+<div id="previewPage">
+  <div class="preview-cont">
+    <div class="no-print" style="padding-bottom:12px;">
+      <button class="btn-dl" onclick="window.print()">🖨️ PDF Save Karo (Save as PDF)</button>
+      <button class="btn-back" onclick="goBack()">← Wapas / Naya Quotation</button>
+    </div>
+
+    <div id="quotDiv">
+      <div class="q-head">
+        <div class="q-lcirc">
+          <svg width="44" height="44" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="24" cy="24" r="11" fill="#FF6B00"/>
+            <circle cx="24" cy="24" r="8" fill="#FFB300"/>
+            <rect x="22.5" y="2" width="3" height="7" rx="1.5" fill="#FF6B00"/>
+            <rect x="22.5" y="39" width="3" height="7" rx="1.5" fill="#FF6B00"/>
+            <rect x="2" y="22.5" width="7" height="3" rx="1.5" fill="#FF6B00"/>
+            <rect x="39" y="22.5" width="7" height="3" rx="1.5" fill="#FF6B00"/>
+            <g transform="rotate(45 24 24)"><rect x="22.5" y="2" width="3" height="7" rx="1.5" fill="#FF6B00"/><rect x="22.5" y="39" width="3" height="7" rx="1.5" fill="#FF6B00"/><rect x="2" y="22.5" width="7" height="3" rx="1.5" fill="#FF6B00"/><rect x="39" y="22.5" width="7" height="3" rx="1.5" fill="#FF6B00"/></g>
+            <text x="24" y="28" text-anchor="middle" font-size="12" font-weight="bold" fill="white" font-family="serif">ॐ</text>
+          </svg>
+        </div>
+        <div>
+          <div class="q-cname">OM SAIRAM ENTERPRISES</div>
+          <div class="q-csub">House no. 338/2 Kirmiti (Bharkas), Tah-Hingna, Dist. Nagpur – 441122<br>📞 7304894029 | 8265087885 &nbsp;|&nbsp; ✉ <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3c53514f5d554e5d5112525b4c7c5b515d5550125f5351">[email&#160;protected]</a></div>
+        </div>
+      </div>
+
+      <div class="q-body">
+        <div class="q-title">Our Offer for You</div>
+        <div class="q-sub">Solar On-Grid Power Plant Proposal</div>
+        <div class="q-valid"><span>⏰ Valid for 7 days from date of issue</span></div>
+        <div class="q-refbar">
+          <span><b>Ref. No.:</b> <span id="qRef">-</span></span>
+          <span><b>Date:</b> <span id="qDate2">-</span></span>
+        </div>
+
+        <div class="q-client" id="qClient"></div>
+        <div class="q-specs" id="qSpecs"></div>
+
+        <table class="q-ptable">
+          <thead><tr><th>Description</th><th style="text-align:right">Cost</th></tr></thead>
+          <tbody id="qPriceBody"></tbody>
+        </table>
+
+        <div class="q-rem" id="qRem" style="display:none"><b>📝 Remarks: </b><span id="qRemTxt"></span></div>
+
+        <div class="q-stitle">💳 Flexible Payment Options</div>
+        <table class="q-pay">
+          <thead><tr><th>Project Milestone</th><th>Finance / Loan</th><th>Cheque / NEFT / Online</th></tr></thead>
+          <tbody>
+            <tr><td>Booking</td><td>25%</td><td>10%</td></tr>
+            <tr><td>Before Material Dispatch</td><td>70%</td><td>85%</td></tr>
+            <tr><td>After Installation</td><td>5%</td><td>5%</td></tr>
+          </tbody>
+        </table>
+
+        <div class="q-bank">
+          <div class="q-bt">🏦 Bank Details (NEFT / RTGS / Online Transfer)</div>
+          <div class="q-bd">
+            <b>A/C Name:</b> Om Sairam Enterprises &nbsp;|&nbsp; <b>Bank:</b> Bank of Maharashtra<br>
+            <b>Branch:</b> MIDC Butibori &nbsp;|&nbsp; <b>A/C No.:</b> 60501324644 &nbsp;|&nbsp; <b>IFSC:</b> MAHB0001402
+          </div>
+        </div>
+
+        <div style="font-size:11px;color:#555;margin-bottom:12px;">
+          <b>GST No.:</b> 27HFIPS6155A1Z8
+        </div>
+
+        <div class="q-stitle">🛡️ Warranty &amp; Services</div>
+        <table class="q-warr">
+          <thead><tr><th>Component</th><th>Warranty</th></tr></thead>
+          <tbody>
+            <tr><td>Solar Panel (Product)</td><td class="yr">12 Years</td></tr>
+            <tr><td>Solar Panel (Production)</td><td class="yr">Up to 30 Years</td></tr>
+            <tr><td>Inverter (On selection)</td><td class="yr">Up to 10 Years</td></tr>
+            <tr><td>Structure Warranty (HDGI)</td><td class="yr">10 Years</td></tr>
+            <tr><td>Maintenance &amp; Service</td><td class="yr">5 Years</td></tr>
+          </tbody>
+        </table>
+
+        <div class="q-tc" style="margin-top:12px;">
+          <div class="q-stitle">📋 Terms &amp; Conditions</div>
+          <ol>
+            <li>Payments only via UPI, bank transfer, or cheque. Cash not accepted.</li>
+            <li>Advance payment is non-refundable.</li>
+            <li>Quote valid for 7 days from date of issue.</li>
+            <li>Subsidy credited directly to beneficiary account after MNRE commissioning.</li>
+            <li>Cost of demand/security deposit from MSEDCL payable by customer.</li>
+            <li>Extra cable beyond standard length will incur additional charges.</li>
+            <li>Terrace inverter installation: INR 3,000/- extra (Single Phase).</li>
+            <li>Customized structure welding: INR 3,000/- extra.</li>
+            <li>Extra-height structures: INR 1,000/- per foot extra.</li>
+          </ol>
+        </div>
+
+        <div class="q-consultant" id="qConsultant" style="display:none;">
+          <div class="q-ct">🧑‍💼 Your Solar Consultant</div>
+          <div class="q-cd" id="qConsultantData"></div>
+        </div>
+      </div>
+
+      <div class="q-foot">
+        <div class="q-ftag">☀ Om Sairam Enterprises ☀</div>
+        <div class="q-fsub">Trusted Solar Partner | Nagpur, Maharashtra | <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="77181a04161e05161a5919100737101a161e1b5914181a">[email&#160;protected]</a></div>
+      </div>
+    </div>
+
+    <div class="no-print" style="padding-top:12px;">
+      <button class="btn-dl" onclick="window.print()">🖨️ PDF Save Karo (Save as PDF)</button>
+      <button class="btn-back" onclick="goBack()">← Naya Quotation Banao</button>
+    </div>
+  </div>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+document.getElementById('qDate').valueAsDate = new Date();
+
+function toggleOtherSize(){
+  document.getElementById('otherSizeBox').className = document.getElementById('sSize').value==='Others' ? 'fg' : 'fg hidden';
+}
+function toggleOtherInv(){
+  document.getElementById('otherInvBox').className = document.getElementById('sInv').value==='Others' ? 'fg' : 'fg hidden';
+}
+
+function fmt(n){ return '₹' + Number(n).toLocaleString('en-IN'); }
+
+function calcP(){
+  const tot = parseFloat(document.getElementById('sPrice').value)||0;
+  const sub = parseFloat(document.getElementById('sSub').value)||0;
+  if(tot<=0){ document.getElementById('pBox').style.display='none'; return; }
+  const net = tot - sub;
+  document.getElementById('pBox').style.display='block';
+  document.getElementById('dTot').textContent = fmt(tot);
+  document.getElementById('dSub').textContent = sub>0 ? '- '+fmt(sub) : 'N/A';
+  document.getElementById('dNet').textContent = fmt(net);
+}
+
+function getRef(){
+  let n = parseInt(localStorage.getItem('ose_q')||'1000'); n++;
+  localStorage.setItem('ose_q', n);
+  return 'OSE/25-26/'+String(n).padStart(5,'0');
+}
+
+function generate(){
+  const name  = document.getElementById('cName').value.trim();
+  const addr  = document.getElementById('cAddr').value.trim();
+  const city  = document.getElementById('cCity').value.trim();
+  const state = document.getElementById('cState').value.trim();
+  const tot   = parseFloat(document.getElementById('sPrice').value)||0;
+  const sizeV = document.getElementById('sSize').value;
+  const size  = sizeV==='Others' ? document.getElementById('otherSize').value.trim() : sizeV;
+  const panel = document.getElementById('sPanel').value;
+  const invV  = document.getElementById('sInv').value;
+  const inv   = invV==='Others' ? document.getElementById('otherInv').value.trim() : invV;
+  const str   = document.getElementById('sStruct').value;
+  const conNm = document.getElementById('conName').value.trim();
+
+  if(!name)  { alert('Client ka naam likhein!'); return; }
+  if(!addr)  { alert('Address likhein!'); return; }
+  if(!city)  { alert('City likhein!'); return; }
+  if(!sizeV) { alert('System size select karo!'); return; }
+  if(!panel) { alert('Solar panel select karo!'); return; }
+  if(!invV)  { alert('Inverter select karo!'); return; }
+  if(!str)   { alert('Structure type select karo!'); return; }
+  if(tot<=0) { alert('System price daalen!'); return; }
+  if(!conNm) { alert('Consultant naam likhein!'); return; }
+
+  const mob   = document.getElementById('cMob').value;
+  const email = document.getElementById('cEmail').value;
+  const rd    = document.getElementById('qDate').value;
+  const dt    = rd ? new Date(rd).toLocaleDateString('en-IN',{day:'2-digit',month:'2-digit',year:'numeric'}) : new Date().toLocaleDateString('en-IN');
+  const plant = document.getElementById('sPlant').value;
+  const batt  = document.getElementById('sBatt').value;
+  const perf  = document.getElementById('sPerf').value;
+  const sub   = parseFloat(document.getElementById('sSub').value)||0;
+  const net   = tot - sub;
+  const rem   = document.getElementById('sRem').value.trim();
+  const ref   = getRef();
+  const conPh = document.getElementById('conPhone').value;
+  const conEm = document.getElementById('conEmail').value;
+  const conOf = document.getElementById('conOffice').value;
+
+  document.getElementById('qRef').textContent = ref;
+  document.getElementById('qDate2').textContent = dt;
+
+  const fullAddr = [addr, city, state].filter(Boolean).join(', ');
+  let cl = `<div class="q-ci"><span class="q-ci-l">Client Name</span><span class="q-ci-v">${name}</span></div>
+             <div class="q-ci"><span class="q-ci-l">Address</span><span class="q-ci-v">${fullAddr}</span></div>`;
+  if(mob)   cl += `<div class="q-ci"><span class="q-ci-l">Mobile</span><span class="q-ci-v">${mob}</span></div>`;
+  if(email) cl += `<div class="q-ci"><span class="q-ci-l">Email</span><span class="q-ci-v">${email}</span></div>`;
+  document.getElementById('qClient').innerHTML = cl;
+
+  let sp = `
+    <div class="q-spec"><div class="q-sico">🔋</div><div><span class="q-sl">System Size</span><span class="q-sv">${size}</span></div></div>
+    <div class="q-spec"><div class="q-sico">☀️</div><div><span class="q-sl">Solar Panels</span><span class="q-sv">${panel}</span></div></div>
+    <div class="q-spec"><div class="q-sico">⚡</div><div><span class="q-sl">Inverter</span><span class="q-sv">${inv}</span></div></div>
+    <div class="q-spec"><div class="q-sico">🔌</div><div><span class="q-sl">Battery</span><span class="q-sv">${batt}</span></div></div>
+    <div class="q-spec"><div class="q-sico">🏗️</div><div><span class="q-sl">Structure</span><span class="q-sv">${str}</span></div></div>
+    <div class="q-spec"><div class="q-sico">🏠</div><div><span class="q-sl">Plant Type</span><span class="q-sv">${plant}</span></div></div>
+    <div class="q-spec"><div class="q-sico">🛠️</div><div><span class="q-sl">Service</span><span class="q-sv">${perf}</span></div></div>`;
+  if(sub>0) sp += `<div class="q-spec"><div class="q-sico">🏛️</div><div><span class="q-sl">Govt. Subsidy</span><span class="q-sv" style="color:#FF6B00">${fmt(sub)}</span></div></div>`;
+  document.getElementById('qSpecs').innerHTML = sp;
+
+  let rows = `<tr><td>System Price with Structure (${plant}) — GST Included</td><td style="text-align:right">${fmt(tot)}</td></tr>`;
+  rows += `<tr class="tr"><td><b>Total</b></td><td style="text-align:right"><b>${fmt(tot)}</b></td></tr>`;
+  if(sub>0){
+    rows += `<tr><td style="color:#888">Less: Govt. Subsidy (PM Surya Ghar)</td><td style="text-align:right;color:#FF6B00">- ${fmt(sub)}</td></tr>`;
+    rows += `<tr class="tr"><td><b>Net Amount Payable</b></td><td style="text-align:right;color:#00C853"><b>${fmt(net)}</b></td></tr>`;
+  }
+  document.getElementById('qPriceBody').innerHTML = rows;
+
+  if(rem){ document.getElementById('qRem').style.display='block'; document.getElementById('qRemTxt').textContent=rem; }
+  else   { document.getElementById('qRem').style.display='none'; }
+
+  let conData = `<b>Name:</b> ${conNm}`;
+  if(conPh) conData += ` &nbsp;|&nbsp; <b>Phone:</b> ${conPh}`;
+  if(conEm) conData += `<br><b>Email:</b> ${conEm}`;
+  if(conOf) conData += ` &nbsp;|&nbsp; <b>Office:</b> ${conOf}`;
+  document.getElementById('qConsultantData').innerHTML = conData;
+  document.getElementById('qConsultant').style.display = 'block';
+
+  document.getElementById('formPage').style.display='none';
+  document.getElementById('previewPage').style.display='block';
+  document.title = name + ' - Solar Quotation';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function goBack(){
+  document.getElementById('previewPage').style.display='none';
+  document.getElementById('formPage').style.display='block';
+  document.title = 'Om Sairam Enterprises - Solar Quotation';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
