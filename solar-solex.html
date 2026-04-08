@@ -338,4 +338,26 @@ function calcP(){
 }
 function getRef(){var n=parseInt(localStorage.getItem('ose_q')||'1000');n++;localStorage.setItem('ose_q',n);return 'OSE/25-26/'+String(n).padStart(5,'0');}
 function gen(){
-  var name
+  var name =document.getElementById('cName').value.trim();
+var addr=document.getElementById('cAddr').value.trim();
+var city=document.getElementById('cCity').value.trim();
+var sv=document.getElementById('sSize').value;
+var panel=document.getElementById('sPanel').value;
+var iv=document.getElementById('sInv').value;
+var str=document.getElementById('sStruct').value;
+var tot=parseFloat(document.getElementById('sPrice').value)||0;
+var con=document.getElementById('conName').value.trim();
+if(!name){alert('Client naam likhein!');return;}
+if(!addr){alert('Address likhein!');return;}
+if(!city){alert('City likhein!');return;}
+if(!sv){alert('System size select karo!');return;}
+if(!panel){alert('Solar panel select karo!');return;}
+if(!iv){alert('Inverter select karo!');return;}
+if(!str){alert('Structure type select karo!');return;}
+if(tot<=0){alert('System price daalen!');return;}
+if(!con){alert('Consultant naam likhein!');return;}
+var state=document.getElementById('cState').value;var mob=document.getElementById('cMob').value;var email=document.getElementById('cEmail').value;var rd=document.getElementById('qDate').value;var dt=rd?new Date(rd).toLocaleDateString('en-IN',{day:'2-digit',month:'2-digit',year:'numeric'}):new Date().toLocaleDateString('en-IN');var plant=document.getElementById('sPlant').value;var batt=document.getElementById('sBatt').value;var perf=document.getElementById('sPerf').value;var sub=parseFloat(document.getElementById('sSub').value)||0;var rem=document.getElementById('sRem').value.trim();var ref=getRef();var size=sv==='Others'?document.getElementById('oSize').value.trim():sv;var inv=iv==='Others'?document.getElementById('oInv').value.trim():iv;var cph=document.getElementById('conPhone').value;var cem=document.getElementById('conEmail').value;var cof=document.getElementById('conOffice').value;document.getElementById('qRef').textContent=ref;document.getElementById('qDate2').textContent=dt;document.title=name+' - Solar Solex';var fa=[addr,city,state].filter(Boolean).join(', ');var cl='<div class="qci"><span class="qcil">Client Name</span><span class="qciv">'+name+'</span></div><div class="qci"><span class="qcil">Address</span><span class="qciv">'+fa+'</span></div>';if(mob)cl+='<div class="qci"><span class="qcil">Mobile</span><span class="qciv">'+mob+'</span></div>';document.getElementById('qClient').innerHTML=cl;var sp='<div class="qspec"><div class="qsico">&#9889;</div><div><span class="qsl">Size</span><span class="qsv">'+size+'</span></div></div><div class="qspec"><div class="qsico">&#9728;</div><div><span class="qsl">Panels</span><span class="qsv">'+panel+'</span></div></div><div class="qspec"><div class="qsico">&#128268;</div><div><span class="qsl">Inverter</span><span class="qsv">'+inv+'</span></div></div><div class="qspec"><div class="qsico">&#127959;</div><div><span class="qsl">Structure</span><span class="qsv">'+str+'</span></div></div><div class="qspec"><div class="qsico">&#127968;</div><div><span class="qsl">Plant</span><span class="qsv">'+plant+'</span></div></div><div class="qspec"><div class="qsico">&#128295;</div><div><span class="qsl">Wiring</span><span class="qsv">Polycab 4/6sqmm</span></div></div>';document.getElementById('qSpecs').innerHTML=sp;var rows='<tr><td>System Price ('+plant+') GST Included</td><td style="text-align:right">'+fmt(tot)+'</td></tr><tr class="tr"><td><b>Total</b></td><td style="text-align:right"><b>'+fmt(tot)+'</b></td></tr>';if(sub>0){rows+='<tr><td style="color:#888">Less: Govt. Subsidy</td><td style="text-align:right;color:#FF6B00">- '+fmt(sub)+'</td></tr><tr class="tr"><td><b>Your Actual Cost (After Subsidy)</b></td><td style="text-align:right;color:#00C853"><b>'+fmt(tot-sub)+'</b></td></tr>';}document.getElementById('qPriceBody').innerHTML=rows;if(rem){document.getElementById('qRem').style.display='block';document.getElementById('qRemTxt').textContent=rem;}else{document.getElementById('qRem').style.display='none';}var cd='<b>Name:</b> '+con;if(cph)cd+=' | <b>Ph:</b> '+cph;document.getElementById('qConData').innerHTML=cd;document.getElementById('qCon').style.display='block';document.getElementById('formPage').style.display='none';document.getElementById('previewPage').style.display='block';window.scrollTo({top:0,behavior:'smooth'});}
+function back(){document.getElementById('previewPage').style.display='none';document.getElementById('formPage').style.display='block';window.scrollTo({top:0,behavior:'smooth'});}
+</script>
+</body>
+</html>
